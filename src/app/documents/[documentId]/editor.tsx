@@ -10,10 +10,12 @@ import {useEditorStore} from "@/store/use-editor-store";
 import Highlight from "@tiptap/extension-highlight";
 import Link from "@tiptap/extension-link";
 import TextAlign from "@tiptap/extension-text-align";
+import {Ruler} from "./ruler";
 
 export const Editor = () => {
     const {setEditor} = useEditorStore();
     const editor = useEditor({
+        immediatelyRender:false,
         onCreate({editor}) {
             setEditor(editor);
         },
@@ -120,9 +122,6 @@ export const Editor = () => {
             }),
         ],
         content: '<p>Hello World! 🌎️</p>',
-
-        // Don't render immediately on the server to avoid SSR issues
-        immediatelyRender: false,
     });
 
     if (!editor) {
@@ -131,6 +130,7 @@ export const Editor = () => {
 
     return (
         <div className="size-full overflow-x-auto bg-[#F9FBFD] px-4 print:px-0 print:bg-white print:overflow-visible">
+            <Ruler/>
             <div className="max-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
                 <EditorContent editor={editor}/>
             </div>
